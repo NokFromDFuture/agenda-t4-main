@@ -1,18 +1,16 @@
 <?php
 
 session_start();
+// Verificar se a sessão NÃO existe:
 if(!isset($_SESSION['dados'])){
- header('Location: login.php');
- exit();
+  header('Location: login.php');
+  exit();
 }
 
 
 
-
 require_once('classes/Contato.class.php');
-
 $c = new Contato();
-
 // Guardar o array de resultado na variavel:
 $resultado = $c->Listar();
 
@@ -24,6 +22,14 @@ $resultado = $c->Listar();
 </head>
 <body>
   <div class="container">
+
+    <div class="row justify-content-end">
+      <div class="col-1">
+      <a href="sair.php" class="btn btn-danger">Sair</a>
+      </div>
+    </div>
+
+    <h3>Bem vindo(a) <?=$_SESSION['dados']['nome']; ?>!</h3>
     <h1>Cadastro de contatos</h1>
     <form class="form-group" action="actions/cadastrar_contato.php" method="POST">
       <label for="nome">Nome completo:</label>
@@ -70,6 +76,6 @@ $resultado = $c->Listar();
 
   <script src = "https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src = "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
+  <?php require_once('alertas.inc.php');  ?>
 </body>
 </html>
